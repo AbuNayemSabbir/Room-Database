@@ -12,6 +12,15 @@
 <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/userId"
+    android:hint="User Id">
+
+
+</EditText>
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
     android:id="@+id/firstName"
     android:hint="First Name">
 
@@ -36,4 +45,12 @@
         android:layout_height="wrap_content">
 
     </Button>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/showTV">
+
+    </TextView>
 </androidx.appcompat.widget.LinearLayoutCompat>
