@@ -9,10 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private EditText firstName,secondName,userID;
-    private Button save;
-    private TextView msgTv;
+    private Button save,fetch;
+    private TextView msgTv,data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +24,14 @@ public class MainActivity extends AppCompatActivity {
         userID=findViewById(R.id.userId);
         firstName=findViewById(R.id.firstName);
         secondName=findViewById(R.id.secondName);
-        save=findViewById(R.id.saveToDB);
-        msgTv=findViewById(R.id.showTV);
 
+        msgTv=findViewById(R.id.showTV);
+        data=findViewById(R.id.dataHolder);
+
+        fetch=findViewById(R.id.fetchDB);
+
+
+        save=findViewById(R.id.saveToDB);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +56,27 @@ public class MainActivity extends AppCompatActivity {
                     secondName.setText("");
                     msgTv.setText("Record is already exist");
                 }
+
+
+            }
+        });
+
+        fetch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "RoomDB").allowMainThreadQueries().build();
+                UserDao userDao = db.userDao();
+                List<User> users=userDao.getAllUsers();
+                String str="";
+                for (User user : users)
+                    str= str +"\t  "+ user.getUid()+ "   "+ user.getFirstName()+"   "+user.getLastName()+ "\n\n";
+
+                data.setText(str);
+                userID.setText("");
+                firstName.setText("");
+                secondName.setText("");
 
 
             }
